@@ -1,0 +1,2 @@
+Start UpRate UpFailSymbol DownRate DownFailSymbol Finish
+2020-10-24 10:39:21 100.00% [] 100.00% [] 2020-10-24 10:40:52
