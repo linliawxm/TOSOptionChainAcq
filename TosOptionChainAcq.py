@@ -15,7 +15,7 @@ import logging
 #     f.write(itemName)
 
 #Record debug info for diagnostic
-logging.basicConfig(filename=r'debug.log', format='%(asctime)s %(message)s', level=logging.ERROR)
+logging.basicConfig(filename=r'C:/Users/rsurveillance/Desktop/python_OI/debug.log', format='%(asctime)s %(message)s', level=logging.ERROR)
 #Record all detail activities
 now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 recording = [now]
@@ -230,7 +230,7 @@ recording.append(downFailSym)
 th.join()
 
 recording.append(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-with open('log.txt','a') as f:
+with open(r'C:/Users/rsurveillance/Desktop/python_OI/log.txt','a') as f:
     recordValue = " ".join([str(elem) for elem in recording])
     f.write(recordValue)
     f.write('\n')
