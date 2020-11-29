@@ -115,6 +115,7 @@ def UploadToSqlThread():
                             try:
                                 cursor.executemany(query_string,all_rows)
                             except:
+                                conn.rollback()
                                 exe_many_err = '{0} details executemany failed'.format(data['symbol'])
                                 logging.error(exe_many_err)
                                 #print(exe_many_err)
