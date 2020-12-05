@@ -95,10 +95,38 @@ def UploadToSqlThread():
                                 contPrices[0]['nonStandard'] = int(contPrices[0]['nonStandard'])
                                 contPrices[0]['tradeDate'] = data['Trading_Day']
 
-                                if contPrices[0]['putCall'] == 'PUT':
-                                    contPrices[0]['putCall'] = 'P'
-                                else:
-                                    contPrices[0]['putCall'] = 'C'
+                                contPrices[0]['putCall'] = 'P'
+
+                                values = list(contPrices[0].values())
+                                values.insert(0,int(headerRecId))
+                                if 'NaN' not in values:
+                                    #placeholders = ', '.join(['?']* len(values)) 
+                                    #dict_values = ', '.join("'" + str(x).replace('/', '_') + "'" for x in values)
+                                    all_rows.append(values)
+                                    
+                                    cont_num = cont_num + 1
+                                    #print('{0}:{1} Contract:{2} uploaded'.format(num_sym_up,data['symbol'],cont_num))
+                        for contDays in data['callExpDateMap'].values():
+                            for contPrices in contDays.values():
+                                #delete unused data
+                                del contPrices[0]['bidAskSize']
+                                del contPrices[0]['tradeTimeInLong'] 
+                                del contPrices[0]['quoteTimeInLong'] 
+                                del contPrices[0]['optionDeliverablesList']
+                                del contPrices[0]['isIndexOption']
+                                #update date format from seconds to date
+                                l_time = contPrices[0]['expirationDate']/1000
+                                contPrices[0]['expirationDate'] = dt.fromtimestamp(l_time).strftime("%Y-%m-%d")
+                                l_time = contPrices[0]['lastTradingDay']/1000
+                                contPrices[0]['lastTradingDay'] = dt.fromtimestamp(l_time).strftime("%Y-%m-%d")
+                                #contPrices[0]['HeaderRecID'] = int(headerRecId)
+                                #Update Boolean True&False to 1&0
+                                contPrices[0]['inTheMoney'] = int(contPrices[0]['inTheMoney'])
+                                contPrices[0]['mini'] = int(contPrices[0]['mini'])
+                                contPrices[0]['nonStandard'] = int(contPrices[0]['nonStandard'])
+                                contPrices[0]['tradeDate'] = data['Trading_Day']
+
+                                contPrices[0]['putCall'] = 'C'
 
                                 values = list(contPrices[0].values())
                                 values.insert(0,int(headerRecId))
